@@ -54,7 +54,7 @@ public class InitService {
 
 	private void initAdmin() {
 		var adminUser = new UserEntity().setEmail("admin@example.com").setFirstName("Admin").setLastName("Adminov")
-				.setPassword(this.passwordEncoder.encode("topSecret")).setRoles(userRoleRepository.findAll());
+				.setPassword(this.passwordEncoder.encode("topsecret")).setRoles(userRoleRepository.findAll());
 
 		userRepository.save(adminUser);
 	}
@@ -64,7 +64,7 @@ public class InitService {
 				.orElseThrow(NoSuchElementException::new);
 
 		var moderatorUser = new UserEntity().setEmail("moderator@example.com").setFirstName("Moderator")
-				.setLastName("Moderatorov").setPassword(this.passwordEncoder.encode("topSecret"))
+				.setLastName("Moderatorov").setPassword(this.passwordEncoder.encode("topsecret"))
 				.addRole(moderatorRole);
 
 		userRepository.save(moderatorUser);
@@ -72,7 +72,7 @@ public class InitService {
 
 	private void initNormalUser() {
 		var normalUser = new UserEntity().setEmail("user@example.com").setFirstName("User").setLastName("Userov")
-				.setPassword(this.passwordEncoder.encode("topSecret"));
+				.setPassword(this.passwordEncoder.encode("topsecret"));
 
 		userRepository.save(normalUser);
 	}
