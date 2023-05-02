@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.softuni.security.model.enums.UserRoleEnum;
 import com.softuni.security.repository.UserRepository;
-import com.softuni.security.web.ApplicationUserDetailsService;
+import com.softuni.security.service.ApplicationUserDetailsService;
 
 @Configuration
 public class SecurityConfiguration {

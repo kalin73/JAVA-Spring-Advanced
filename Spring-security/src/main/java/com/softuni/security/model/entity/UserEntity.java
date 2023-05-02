@@ -28,6 +28,8 @@ public class UserEntity {
 	@Column(nullable = false)
 	private String lastName;
 
+	private String country;
+
 	@Column(nullable = false)
 	private String password;
 
@@ -74,6 +76,15 @@ public class UserEntity {
 		return this;
 	}
 
+	public String getCountry() {
+		return country;
+	}
+
+	public UserEntity setCountry(String country) {
+		this.country = country;
+		return this;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -94,13 +105,15 @@ public class UserEntity {
 
 	public UserEntity addRole(UserRoleEntity role) {
 		this.roles.add(role);
-		
+
 		return this;
 	}
 
 	@Override
 	public String toString() {
 		return "UserEntity [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", password=" + password + ", roles=" + roles + "]";
+				+ ", country=" + country + ", password=" + (password != null ? "[PROVIDED]" : "[N/A]") + ", roles="
+				+ roles + "]";
 	}
+
 }
