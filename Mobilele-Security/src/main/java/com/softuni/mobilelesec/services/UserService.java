@@ -20,7 +20,8 @@ public class UserService extends DataBaseInitService {
 	private final ModelMapper modelMapper;
 	private final PasswordEncoder passwordEncoder;
 
-	public UserService(UserRepository userRepository, ModelMapper modelMapper, UserRoleService userRoleService, PasswordEncoder passwordEncoder, UserRoleRepository userRoleRepository) {
+	public UserService(UserRepository userRepository, ModelMapper modelMapper, UserRoleService userRoleService,
+			PasswordEncoder passwordEncoder, UserRoleRepository userRoleRepository) {
 		super(userRoleService);
 		this.userRepository = userRepository;
 		this.userRoleService = userRoleService;
@@ -30,13 +31,10 @@ public class UserService extends DataBaseInitService {
 	}
 
 	public void dbInit() {
-		if(!isDbInit()) {
-			UserEntity admin = new UserEntity()
-					.setFirstName("Admin")
-					.setLastName("Adminov")
-					.setEmail("admin@example.com")
-					.setRoles(userRoleRepository.findAll());
-			
+		if (!isDbInit()) {
+			UserEntity admin = new UserEntity().setFirstName("Admin").setLastName("Adminov")
+					.setEmail("admin@example.com").setRoles(userRoleRepository.findAll());
+
 			userRepository.save(admin);
 		}
 
@@ -53,6 +51,7 @@ public class UserService extends DataBaseInitService {
 				: List.of(this.userRoleService.findRoleByName("USER")));
 
 		UserEntity userToSave = this.modelMapper.map(userModel, UserEntity.class);
+		userToSave.setPassword(passwordEncoder.encode(userToSave.getPassword()));
 
 		return this.modelMapper.map(this.userRepository.saveAndFlush(userToSave), UserModel.class);
 	}
