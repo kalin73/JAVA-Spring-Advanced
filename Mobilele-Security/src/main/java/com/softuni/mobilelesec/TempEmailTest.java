@@ -1,7 +1,9 @@
-package com.softuni.mobilelesec.services;
+package com.softuni.mobilelesec;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import com.softuni.mobilelesec.services.EmailService;
 
 @Component
 public class TempEmailTest implements CommandLineRunner{

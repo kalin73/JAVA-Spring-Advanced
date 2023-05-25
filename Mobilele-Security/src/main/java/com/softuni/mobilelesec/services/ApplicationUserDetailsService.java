@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.softuni.mobilelesec.domain.entities.UserEntity;
 import com.softuni.mobilelesec.domain.entities.UserRoleEntity;
@@ -22,6 +23,7 @@ public class ApplicationUserDetailsService implements UserDetailsService {
 	}
 
 	@Override
+	@Transactional
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		return this.userRepository.findByEmail(email).map(this::map)
 				.orElseThrow(() -> new UsernameNotFoundException("User with name " + email + " not found!"));

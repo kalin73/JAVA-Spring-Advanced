@@ -37,7 +37,7 @@ public class StateController extends BaseController {
 
 	@PostMapping("/register")
 	public ModelAndView postRegister(UserRegisterFormDto userRegisterFormDto, HttpSession httpSession) {
-		httpSession.setAttribute(STATE_USERNAME_KEY, userRegisterFormDto.getUsername());
+		httpSession.setAttribute(STATE_USERNAME_KEY, userRegisterFormDto.getEmail());
 
 		return super.redirect("/demo/login");
 	}

@@ -2,15 +2,15 @@ package com.softuni.mobilelesec.domain.dtos.binding;
 
 import com.softuni.mobilelesec.validations.matchingPasswords.PasswordMatch;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
 
 @PasswordMatch(password = "password", confirmPassword = "confirmPassword")
 public class UserRegisterFormDto {
 	@NotNull
-	@Size(min = 5, max = 20)
-	private String username;
+	@Email
+	private String email;
 
 	@NotNull
 	@Size(min = 5, max = 20)
@@ -34,52 +34,58 @@ public class UserRegisterFormDto {
 
 	}
 
-	public String getUsername() {
-		return username;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public UserRegisterFormDto setEmail(String email) {
+		this.email = email;
+		return this;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public UserRegisterFormDto setPassword(String password) {
 		this.password = password;
+		return this;
 	}
 
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}
 
-	public void setConfirmPassword(String confirmPassword) {
+	public UserRegisterFormDto setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
+		return this;
 	}
 
 	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public UserRegisterFormDto setFirstName(String firstName) {
 		this.firstName = firstName;
+		return this;
 	}
 
 	public String getLastName() {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public UserRegisterFormDto setLastName(String lastName) {
 		this.lastName = lastName;
+		return this;
 	}
 
 	public String getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public UserRegisterFormDto setRole(String role) {
 		this.role = role;
+		return this;
 	}
 
 }
