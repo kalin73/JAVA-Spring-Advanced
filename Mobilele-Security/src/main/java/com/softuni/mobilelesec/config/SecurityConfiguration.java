@@ -18,12 +18,11 @@ public class SecurityConfiguration {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		// defines which pages will be authorized
-		http.authorizeHttpRequests()
+		http.authorizeHttpRequests(matcher -> matcher
 				// allow access to all static files (images, CSS, js)
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 				// the URL-s below are available for all users - logged in and anonymous
-				.requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll().and()
-				// configure login with HTML form
+				.requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll())
 				.formLogin(login -> login.loginPage("/users/login")
 						// the names of the user name, password input fields in the custom login form
 						.usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)

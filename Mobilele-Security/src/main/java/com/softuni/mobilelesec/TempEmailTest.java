@@ -1,11 +1,10 @@
 package com.softuni.mobilelesec;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import com.softuni.mobilelesec.services.EmailService;
 
-@Component
+//@Component
 public class TempEmailTest implements CommandLineRunner{
 	private final EmailService emailService;
 
@@ -15,7 +14,7 @@ public class TempEmailTest implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		//emailService.sendRegistrationEmail("kalin@example.com", "Kalin");
+		emailService.sendRegistrationEmail("kalin@example.com", "Kalin");
 		
 	}
 
