@@ -49,7 +49,7 @@ public class UserService extends DataBaseInitService {
 		return this.userRepository.count() > 0;
 	}
 
-	public UserModel registerUser(UserRegisterFormDto userRegister) {
+	public UserModel registerUser1(UserRegisterFormDto userRegister) {
 		final UserModel userModel = modelMapper.map(userRegister, UserModel.class);
 
 		userModel.setRole(!isDbInit() ? this.userRoleService.findAllRoles()
@@ -59,6 +59,16 @@ public class UserService extends DataBaseInitService {
 		userToSave.setPassword(passwordEncoder.encode(userToSave.getPassword()));
 
 		return this.modelMapper.map(this.userRepository.saveAndFlush(userToSave), UserModel.class);
+	}
+	
+	public void registerUser(UserRegisterFormDto userRegister) {
+		UserEntity userToSave = new UserEntity()
+				.setFirstName(userRegister.getFirstName())
+				.setLastName(userRegister.getLastName())
+				.setEmail(userRegister.getEmail())
+				.setPassword(passwordEncoder.encode(userRegister.getPassword()));
+
+		this.userRepository.save(userToSave);
 	}
 
 }
