@@ -1,121 +1,108 @@
 package com.softuni.mobilelesec.domain.entities;
 
+import jakarta.persistence.*;
+
 import java.util.Date;
 
 import com.softuni.mobilelesec.domain.enums.ModelCategory;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
 @Entity
 @Table(name = "models")
 public class ModelEntity extends BaseEntity {
-	@Column
-	private String name;
 
-	@Enumerated(EnumType.STRING)
-	private ModelCategory category;
+    @Column
+    private String name;
 
-	@Column
-	private String imageUrl;
+    @Enumerated(EnumType.STRING)
+    private ModelCategory category;
 
-	@Column(name = "start_year")
-	private Integer startYear;
+    @Column
+    private String imageUrl;
 
-	@Column(name = "end_year")
-	private Integer endYear;
+    @Column
+    private Integer startYear;
 
-	@Column
-	private Date created;
+    @Column
+    private Integer endYear;
 
-	@Column
-	private Date modified;
+    @Column
+    private Date created;
 
-	@ManyToOne
-	private BrandEntity brand;
+    @Column
+    private Date modified;
 
-	public ModelEntity() {
+    @ManyToOne
+    private BrandEntity brand;
 
-	}
+    public String getName() {
+        return name;
+    }
 
-	public ModelEntity(String name, ModelCategory category, String imageUrl, Integer startYear, Integer endYear, Date created,
-			Date modified, BrandEntity brand) {
-		this.name = name;
-		this.category = category;
-		this.imageUrl = imageUrl;
-		this.startYear = startYear;
-		this.endYear = endYear;
-		this.created = created;
-		this.modified = modified;
-		this.brand = brand;
-	}
+    public ModelEntity setName(String name) {
+        this.name = name;
+        return this;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public ModelCategory getCategory() {
+        return category;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public ModelEntity setCategory(ModelCategory category) {
+        this.category = category;
+        return this;
+    }
 
-	public ModelCategory getCategory() {
-		return category;
-	}
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-	public void setCategory(ModelCategory category) {
-		this.category = category;
-	}
+    public ModelEntity setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+        return this;
+    }
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
+    public Integer getStartYear() {
+        return startYear;
+    }
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+    public ModelEntity setStartYear(Integer startYear) {
+        this.startYear = startYear;
+        return this;
+    }
 
-	public Integer getStartYear() {
-		return startYear;
-	}
+    public Integer getEndYear() {
+        return endYear;
+    }
 
-	public void setStartYear(Integer startYear) {
-		this.startYear = startYear;
-	}
+    public ModelEntity setEndYear(Integer endYear) {
+        this.endYear = endYear;
+        return this;
+    }
 
-	public Integer getEndYear() {
-		return endYear;
-	}
+    public Date getCreated() {
+        return created;
+    }
 
-	public void setEndYear(Integer endYear) {
-		this.endYear = endYear;
-	}
+    public ModelEntity setCreated(Date created) {
+        this.created = created;
+        return this;
+    }
 
-	public Date getCreated() {
-		return created;
-	}
+    public Date getModified() {
+        return modified;
+    }
 
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+    public ModelEntity setModified(Date modified) {
+        this.modified = modified;
+        return this;
+    }
 
-	public Date getModified() {
-		return modified;
-	}
+    public BrandEntity getBrand() {
+        return brand;
+    }
 
-	public void setModified(Date modified) {
-		this.modified = modified;
-	}
-
-	public BrandEntity getBrand() {
-		return brand;
-	}
-
-	public void setBrand(BrandEntity brand) {
-		this.brand = brand;
-	}
-
+    public ModelEntity setBrand(BrandEntity brand) {
+        this.brand = brand;
+        return this;
+    }
 }

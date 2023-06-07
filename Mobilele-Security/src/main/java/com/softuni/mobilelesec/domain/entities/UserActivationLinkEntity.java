@@ -1,29 +1,32 @@
 package com.softuni.mobilelesec.domain.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class UserActivationLinkEntity extends BaseEntity {
-	private UserEntity user;
 
-	private String code;
+  @OneToOne
+  private UserEntity user;
 
-	public UserEntity getUser() {
-		return user;
-	}
+  private String code;
 
-	public UserActivationLinkEntity setUser(UserEntity user) {
-		this.user = user;
-		return this;
-	}
+  public UserEntity getUser() {
+    return user;
+  }
 
-	public String getCode() {
-		return code;
-	}
+  public UserActivationLinkEntity setUser(UserEntity user) {
+    this.user = user;
+    return this;
+  }
 
-	public UserActivationLinkEntity setCode(String code) {
-		this.code = code;
-		return this;
-	}
+  public String getCode() {
+    return code;
+  }
+
+  public UserActivationLinkEntity setCode(String code) {
+    this.code = code;
+    return this;
+  }
 
 }

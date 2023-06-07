@@ -3,7 +3,6 @@ package com.softuni.mobilelesec.services;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,25 +19,24 @@ public class UserService extends DataBaseInitService {
 	private final UserRoleRepository userRoleRepository;
 	private final ModelMapper modelMapper;
 	private final PasswordEncoder passwordEncoder;
-	private final String defaultAdminPass;
+	private final EmailService emailService;
 
 	public UserService(UserRepository userRepository, ModelMapper modelMapper, UserRoleService userRoleService,
-			PasswordEncoder passwordEncoder, UserRoleRepository userRoleRepository,
-			@Value("${mobilele.admin.defaultpass}") String defaultAdminPass) {
+			PasswordEncoder passwordEncoder, UserRoleRepository userRoleRepository, EmailService emailService) {
 		super(userRoleService);
 		this.userRepository = userRepository;
 		this.userRoleService = userRoleService;
 		this.userRoleRepository = userRoleRepository;
 		this.modelMapper = modelMapper;
 		this.passwordEncoder = passwordEncoder;
-		this.defaultAdminPass = defaultAdminPass;
+		this.emailService = emailService;
 	}
 
 	public void dbInit() {
 		if (!isDbInit()) {
 			UserEntity admin = new UserEntity().setFirstName("Admin").setLastName("Adminov")
 					.setEmail("admin@example.com").setRoles(userRoleRepository.findAll())
-					.setPassword(passwordEncoder.encode(defaultAdminPass));
+					.setPassword(passwordEncoder.encode("topsecret"));
 
 			userRepository.save(admin);
 		}
@@ -60,15 +58,16 @@ public class UserService extends DataBaseInitService {
 
 		return this.modelMapper.map(this.userRepository.saveAndFlush(userToSave), UserModel.class);
 	}
-	
+
 	public void registerUser(UserRegisterFormDto userRegister) {
-		UserEntity userToSave = new UserEntity()
-				.setFirstName(userRegister.getFirstName())
-				.setLastName(userRegister.getLastName())
-				.setEmail(userRegister.getEmail())
+		UserEntity userToSave = new UserEntity().setFirstName(userRegister.getFirstName())
+				.setLastName(userRegister.getLastName()).setEmail(userRegister.getEmail())
 				.setPassword(passwordEncoder.encode(userRegister.getPassword()));
 
 		this.userRepository.save(userToSave);
+
+		this.emailService.sendRegistrationEmail(userToSave.getEmail(),
+				userToSave.getFirstName() + " " + userToSave.getLastName());
 	}
 
 }

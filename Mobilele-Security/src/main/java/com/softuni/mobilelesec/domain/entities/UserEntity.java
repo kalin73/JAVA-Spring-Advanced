@@ -1,150 +1,94 @@
 package com.softuni.mobilelesec.domain.entities;
 
-import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
-	@Column
-	private String username;
 
-	@Column
-	private String password;
+    @Column
+    private String email; // –  username of the user.
 
-	@Column
-	private String email;
+    @Column
+    private String password; //– password of the user.
 
-	@Column(name = "first_name")
-	private String firstName;
+    @Column
+    private String firstName; //–  first name of the user.
 
-	@Column(name = "last_name")
-	private String lastName;
+    @Column
+    private String lastName; //–  last name of the user.
 
-	@Column(name = "image_url")
-	private String imageUrl;
+    @Column
+    private Boolean isActive; //– true OR false.
 
-	@Column(name = "is_active")
-	private Boolean isActive;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(
+        name = "users_roles",
+        joinColumns = { @JoinColumn(name = "user_id") },
+        inverseJoinColumns = { @JoinColumn(name = "role_id") }
+    )
+    private List<UserRoleEntity> roles; //–  user's role (UserEntity or Admin).
 
-	@OneToMany
-	private List<UserRoleEntity> roles;
 
-	@Column
-	private Date created;
+    public String getPassword() {
+        return password;
+    }
 
-	@Column
-	private Date modified;
+    public UserEntity setPassword(String password) {
+        this.password = password;
+        return this;
+    }
 
-	public UserEntity() {
+    public String getFirstName() {
+        return firstName;
+    }
 
-	}
+    public UserEntity setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
 
-	public UserEntity(String username, String password, String firstName, String lastName, String imageUrl,
-			Boolean isActive, List<UserRoleEntity> roles, Date created, Date modified) {
-		this.username = username;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.imageUrl = imageUrl;
-		this.isActive = isActive;
-		this.roles = roles;
-		this.created = created;
-		this.modified = modified;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public UserEntity setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
 
-	public UserEntity setUsername(String username) {
-		this.username = username;
-		return this;
-	}
+    public Boolean getActive() {
+        return isActive;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public UserEntity setActive(Boolean active) {
+        isActive = active;
+        return this;
+    }
 
-	public UserEntity setPassword(String password) {
-		this.password = password;
-		return this;
-	}
+    public List<UserRoleEntity> getRoles() {
+        return roles;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public UserEntity setRoles(List<UserRoleEntity> roles) {
+        this.roles = roles;
+        return this;
+    }
 
-	public UserEntity setFirstName(String firstName) {
-		this.firstName = firstName;
-		return this;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getEmail() {
-		return email;
-	}
-
-	public UserEntity setEmail(String email) {
-		this.email = email;
-		return this;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public UserEntity setLastName(String lastName) {
-		this.lastName = lastName;
-		return this;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public UserEntity setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-		return this;
-	}
-
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	public UserEntity setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-		return this;
-	}
-
-	public List<UserRoleEntity> getRoles() {
-		return roles;
-	}
-
-	public UserEntity setRoles(List<UserRoleEntity> roles) {
-		this.roles = roles;
-		return this;
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public UserEntity setCreated(Date created) {
-		this.created = created;
-		return this;
-	}
-
-	public Date getModified() {
-		return modified;
-	}
-
-	public UserEntity setModified(Date modified) {
-		this.modified = modified;
-		return this;
-	}
+    public UserEntity setEmail(String email) {
+        this.email = email;
+        return this;
+    }
 }

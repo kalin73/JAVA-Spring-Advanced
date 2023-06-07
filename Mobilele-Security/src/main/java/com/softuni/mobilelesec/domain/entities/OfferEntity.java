@@ -1,7 +1,8 @@
 package com.softuni.mobilelesec.domain.entities;
 
-import java.math.BigDecimal;
-import java.util.Date;
+import java.util.UUID;
+
+import org.hibernate.annotations.JdbcTypeCode;
 
 import com.softuni.mobilelesec.domain.enums.Engine;
 import com.softuni.mobilelesec.domain.enums.Transmission;
@@ -13,134 +14,128 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+//TODO: fix type in entity
+
 @Entity
 @Table(name = "offers")
 public class OfferEntity extends BaseEntity {
-	@Column
-	private String description;
+    @Column
+    private String description;
 
-	@Enumerated(EnumType.STRING)
-	private Engine engine;
+    @JdbcTypeCode(java.sql.Types.VARCHAR)
+    private UUID offerId;
 
-	@Column
-	private String mileage;
+    @Enumerated(EnumType.STRING)
+    private Engine engine;
 
-	@Column
-	private BigDecimal price;
+    @Column
+    private String imageUrl;
 
-	@Column
-	private Transmission transmission;
+    @Column
+    private String mileage;
 
-	@Column
-	private String year;
+    @Column
+    private String price;
 
-	@Column
-	private Date created;
+    @Enumerated(EnumType.STRING)
+    private Transmission transmission;
 
-	@Column
-	private Date modified;
+    @Column
+    private String year;
 
-	@ManyToOne
-	private ModelEntity model;
+    @ManyToOne
+    private ModelEntity model;
 
-	@ManyToOne
-	private UserEntity seller;
+    @ManyToOne
+    private UserEntity seller;
 
-	public OfferEntity() {
+    public String getDescription() {
+        return description;
+    }
 
-	}
+    public OfferEntity setDescription(String description) {
+        this.description = description;
+        return this;
+    }
 
-	public OfferEntity(String description, Engine engine, String mileage, BigDecimal price, Transmission transmission,
-			String year, Date created, Date modified, ModelEntity model, UserEntity seller) {
-		this.description = description;
-		this.engine = engine;
-		this.mileage = mileage;
-		this.price = price;
-		this.transmission = transmission;
-		this.year = year;
-		this.created = created;
-		this.modified = modified;
-		this.model = model;
-		this.seller = seller;
-	}
+    public Engine getEngine() {
+        return engine;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public OfferEntity setEngine(Engine engine) {
+        this.engine = engine;
+        return this;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-	public Engine getEngine() {
-		return engine;
-	}
+    public OfferEntity setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+        return this;
+    }
 
-	public void setEngine(Engine engine) {
-		this.engine = engine;
-	}
+    public String getMileage() {
+        return mileage;
+    }
 
-	public String getMileage() {
-		return mileage;
-	}
+    public OfferEntity setMileage(String mileage) {
+        this.mileage = mileage;
+        return this;
+    }
 
-	public void setMileage(String mileage) {
-		this.mileage = mileage;
-	}
+    public String getPrice() {
+        return price;
+    }
 
-	public BigDecimal getPrice() {
-		return price;
-	}
+    public OfferEntity setPrice(String price) {
+        this.price = price;
+        return this;
+    }
 
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
+    public Transmission getTransmission() {
+        return transmission;
+    }
 
-	public Transmission getTransmission() {
-		return transmission;
-	}
+    public OfferEntity setTransmission(Transmission transmission) {
+        this.transmission = transmission;
+        return this;
+    }
 
-	public void setTransmission(Transmission transmission) {
-		this.transmission = transmission;
-	}
+    public String getYear() {
+        return year;
+    }
 
-	public String getYear() {
-		return year;
-	}
+    public OfferEntity setYear(String year) {
+        this.year = year;
+        return this;
+    }
 
-	public void setYear(String year) {
-		this.year = year;
-	}
+    public ModelEntity getModel() {
+        return model;
+    }
 
-	public Date getCreated() {
-		return created;
-	}
+    public OfferEntity setModel(ModelEntity model) {
+        this.model = model;
+        return this;
+    }
 
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+    public UserEntity getSeller() {
+        return seller;
+    }
 
-	public Date getModified() {
-		return modified;
-	}
+    public OfferEntity setSeller(UserEntity seller) {
+        this.seller = seller;
+        return this;
+    }
 
-	public void setModified(Date modified) {
-		this.modified = modified;
-	}
+    public UUID getOfferId() {
+        return offerId;
+    }
 
-	public ModelEntity getModel() {
-		return model;
-	}
-
-	public void setModel(ModelEntity model) {
-		this.model = model;
-	}
-
-	public UserEntity getSeller() {
-		return seller;
-	}
-
-	public void setSeller(UserEntity seller) {
-		this.seller = seller;
-	}
+    public OfferEntity setOfferId(UUID offerId) {
+        this.offerId = offerId;
+        return this;
+    }
 }
