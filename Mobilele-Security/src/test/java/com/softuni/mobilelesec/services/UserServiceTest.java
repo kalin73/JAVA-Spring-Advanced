@@ -2,7 +2,7 @@ package com.softuni.mobilelesec.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +26,9 @@ public class UserServiceTest {
 	@Mock
 	private UserRepository mockUserRepository;
 
+	@Mock
+	private EmailService mockEmailService;
+
 	@Captor
 	private ArgumentCaptor<UserEntity> userEntityArgumentCaptor;
 
@@ -33,7 +36,7 @@ public class UserServiceTest {
 
 	@BeforeEach
 	void setUp() {
-		toTest = new UserService(mockUserRepository, null, null, mockPasswordEncoder, null, null);
+		toTest = new UserService(mockUserRepository, mockPasswordEncoder, mockEmailService);
 	}
 
 	@Test
@@ -52,25 +55,29 @@ public class UserServiceTest {
 	@Test
 	void testUserRegistration_SaveInvoked_Version2() {
 		// ARRANGE
-		
+
 		String testPassword = "topsecret";
 		String encodedPassword = "encoded_password";
-		
-		UserRegisterFormDto testRegisterFormDto = new UserRegisterFormDto().setEmail("test@example.com")
-				.setFirstName("Test").setLastName("Testov").setPassword(testPassword);
-		
+		String email = "test@example.com";
+		String firstName = "Test";
+		String lastName = "Testov";
+
+		UserRegisterFormDto testRegisterFormDto = new UserRegisterFormDto().setEmail(email).setFirstName(firstName)
+				.setLastName(lastName).setPassword(testPassword);
+
 		when(mockPasswordEncoder.encode(testRegisterFormDto.getPassword())).thenReturn(encodedPassword);
-		
 
 		// ACT
 		toTest.registerUser(testRegisterFormDto);
 
 		// ASSERT
-		Mockito.verify(mockUserRepository).save(userEntityArgumentCaptor.capture());
+		verify(mockUserRepository).save(userEntityArgumentCaptor.capture());
 
 		UserEntity actualSavedUser = userEntityArgumentCaptor.getValue();
-		
+
 		assertEquals(encodedPassword, actualSavedUser.getPassword());
+
+		verify(mockEmailService).sendRegistrationEmail(email, firstName + " " + lastName);
 
 	}
 }

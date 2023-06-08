@@ -26,6 +26,3 @@ mail:
   port: 1025
   username: "admin@example.com"
  
-mobilele:
-  admin:
-    defaultpass: ${DEFAULT_PASS:test}

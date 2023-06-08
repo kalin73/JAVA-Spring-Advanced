@@ -15,37 +15,34 @@
 			class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
 			<div class="row">
 				<div class="form-group col-md-6 mb-3">
-					<label for="firstName" class="text-white font-weight-bold">First
-						Name</label> <input id="firstName" name="firstName" type="text" min="2"
-						max="20" class="form-control" placeholder="First name"
-						th:value="*{firstName}" />
+					<label th:for="firstName" class="text-white font-weight-bold">First
+						Name</label> <input type="text" class="form-control"
+						placeholder="First name" th:field="*{firstName}" />
 					<p th:if="${#fields.hasErrors('firstName')}"
 						class=" errors alertalert-danger">First name is required.</p>
 				</div>
 				<div class="form-group col-md-6 mb-3">
-					<label for="lastName" class="text-white font-weight-bold">Last
-						Name</label> <input id="lastName" name="lastName" type="text" min="2"
-						max="20" class="form-control" placeholder="Last name"
-						th:value="*{lastName}" />
+					<label th:for="lastName" class="text-white font-weight-bold">Last
+						Name</label> <input type="text" class="form-control"
+						placeholder="Last name" th:field="*{lastName}" />
 					<p th:if="${#fields.hasErrors('lastName')}"
 						class=" errors alertalert-danger">Last name is required.</p>
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-md-6 mb-3">
-					<label for="email" class="text-white font-weight-bold">Email</label>
-					<input id="email" name="email" type="text" min="2" max="20"
-						class="form-control" placeholder="Email" th:value="*{email}" />
+					<label th:for="email" class="text-white font-weight-bold">Email</label>
+					<input th:field=*{email} class="form-control" placeholder="Email"
+						th:value="*{email}" />
 					<p th:if="${#fields.hasErrors('email')}"
-						class=" errors alertalert-danger">Email is required.</p>
+						class=" errors alertalert-danger">Valid email is required.</p>
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-md-6 mb-3">
 					<label for="password" class="text-white font-weight-bold">Password</label>
-					<input id="password" type="password" name="password" min="2"
-						max="20" class="form-control" placeholder="Password"
-						th:value="*{password}" />
+					<input id="password" type="password" name="password"
+						class="form-control" placeholder="Password" />
 					<p th:if="${#fields.hasErrors('password')}"
 						class=" errors alertalert-danger">Password is required.</p>
 				</div>
@@ -53,29 +50,17 @@
 					<label for="confirmPassword" class="text-white font-weight-bold">Confirm
 						Password</label> <input id="confirmPassword" type="password"
 						name="confirmPassword" min="2" max="20" class="form-control"
-						placeholder="Confirm password" th:value="*{confirmPassword}" />
+						placeholder="Confirm password" />
 					<p th:if="${#fields.hasErrors('confirmPassword')}"
 						class=" errors
 						alertalert-danger">Confirm Password is
 						required.</p>
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="text-center text-white font-weight-bold" for="roles">Roles</label>
-				<select id="roles" class="form-control" name="role" multiple>
-					<tr th:each="role:${roles}">
-						<option th:text="${role.role}" th:value="${role.role}"></option>
-					</tr>
-				</select>
-				<p th:if="${#fields.hasErrors('role')}"
-					class="errors alert alert-danger">Selecting a role is required.</p>
-			</div>
-
 			<div class="row">
 				<div class="col col-md-4">
 					<div class="button-holder d-flex">
-						<input type="submit" class="btn btn-info btn-lg"
-							value="Submit Offer" />
+						<input type="submit" class="btn btn-info btn-lg" value="Register" />
 					</div>
 				</div>
 			</div>
