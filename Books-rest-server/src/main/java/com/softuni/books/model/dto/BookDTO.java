@@ -1,10 +1,15 @@
 package com.softuni.books.model.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 public class BookDTO {
 	private Long id;
 
 	private String title;
 
+	@NotEmpty
+	@Size(min = 5)
 	private String isbn;
 
 	private AuthorDTO author;

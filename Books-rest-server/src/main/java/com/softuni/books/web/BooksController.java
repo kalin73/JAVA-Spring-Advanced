@@ -18,6 +18,12 @@ import com.softuni.books.model.dto.BookDTO;
 import com.softuni.books.repository.BookRepository;
 import com.softuni.books.service.BookService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping("/api/books")
 public class BooksController {
@@ -35,6 +41,14 @@ public class BooksController {
 		return ResponseEntity.ok(bookService.getAllBooks());
 	}
 
+	@Operation(summary = "Get book by the given ID")
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "200", description = "If the book was discoverd", content = {
+					@Content(mediaType = "applivation/json", schema = @Schema(implementation = BookDTO.class)) }), 
+			@ApiResponse(responseCode = "400", description = "If the ID was incorect."),
+			@ApiResponse(responseCode = "404", description = "If the book was not found.")
+		}
+	)
 	@GetMapping("/{id}")
 	public ResponseEntity<BookDTO> getBookById(@PathVariable(name = "id") Long id) {
 		Optional<BookDTO> theBook = bookService.getBookById(id);
