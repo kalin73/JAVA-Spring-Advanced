@@ -22,7 +22,8 @@ public class SecurityConfiguration {
 				// allow access to all static files (images, CSS, js)
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 				// the URL-s below are available for all users - logged in and anonymous
-				.requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll())
+				.requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll()
+				.requestMatchers("/offers/all").authenticated())
 				.formLogin(login -> login.loginPage("/users/login")
 						// the names of the user name, password input fields in the custom login form
 						.usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
