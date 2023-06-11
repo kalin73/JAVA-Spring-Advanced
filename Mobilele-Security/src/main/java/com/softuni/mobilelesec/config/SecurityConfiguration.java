@@ -1,5 +1,6 @@
 package com.softuni.mobilelesec.config;
 
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +24,8 @@ public class SecurityConfiguration {
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 				// the URL-s below are available for all users - logged in and anonymous
 				.requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll()
-				.requestMatchers("/offers/all").authenticated())
+				.requestMatchers("/offers/all").authenticated()
+				.requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll())
 				.formLogin(login -> login.loginPage("/users/login")
 						// the names of the user name, password input fields in the custom login form
 						.usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)

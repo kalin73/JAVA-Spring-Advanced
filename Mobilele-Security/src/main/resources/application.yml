@@ -20,9 +20,21 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: 'TRUE'
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
 mail:
   host: ${MAIL_HOST:localhost}
   port: ${MAIL_PORT:1025}
   username: ${MAIL_USERNAME:admin@example.com}
   password: ${MAIL_PASS:}
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  server:
+    port: 8081
  
