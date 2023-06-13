@@ -1,5 +1,6 @@
 package com.softuni.mobilelesec.services;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -7,10 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.softuni.mobilelesec.domain.dtos.model.SearchOfferDTO;
 import com.softuni.mobilelesec.domain.dtos.view.OfferDetailsViewDTO;
 import com.softuni.mobilelesec.domain.entities.OfferEntity;
 import com.softuni.mobilelesec.domain.enums.UserRoleEnum;
 import com.softuni.mobilelesec.repositories.OfferRepository;
+import com.softuni.mobilelesec.repositories.OfferSpecification;
 import com.softuni.mobilelesec.services.exception.ObjectNotFoundException;
 
 @Service
@@ -57,6 +60,13 @@ public class OfferService {
 				.orElseThrow(() -> new ObjectNotFoundException("Offer " + offerId + " not found!", offerId));
 
 		return map(offerEntity);
+	}
+
+	public List<OfferDetailsViewDTO> findOffers(SearchOfferDTO filter) {
+		return this.offerRepository.findAll(new OfferSpecification(filter))
+				.stream()
+				.map(this::map)
+				.toList();
 	}
 
 	private boolean isUserAdmin(UserDetails userDetails) {
