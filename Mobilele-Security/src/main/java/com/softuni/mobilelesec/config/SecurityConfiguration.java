@@ -4,6 +4,7 @@ import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointR
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +16,7 @@ import com.softuni.mobilelesec.repositories.UserRepository;
 import com.softuni.mobilelesec.services.ApplicationUserDetailsService;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfiguration {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -24,7 +26,7 @@ public class SecurityConfiguration {
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 				// the URL-s below are available for all users - logged in and anonymous
 				.requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll()
-				.requestMatchers("/offers/all").authenticated()
+				.requestMatchers("/offers/*").authenticated()
 				.requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll())
 				.formLogin(login -> login.loginPage("/users/login")
 						// the names of the user name, password input fields in the custom login form
