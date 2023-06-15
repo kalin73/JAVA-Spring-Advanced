@@ -1,4 +1,4 @@
-package com.softuni.pathfindersec.web.controllers;
+package com.softuni.pathfindersec.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

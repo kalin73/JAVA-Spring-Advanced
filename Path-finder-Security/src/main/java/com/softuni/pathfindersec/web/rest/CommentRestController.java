@@ -1,4 +1,4 @@
-package com.softuni.pathfindersec.web.controllers.rest;
+package com.softuni.pathfindersec.web.rest;
 
 import java.net.URI;
 import java.util.List;

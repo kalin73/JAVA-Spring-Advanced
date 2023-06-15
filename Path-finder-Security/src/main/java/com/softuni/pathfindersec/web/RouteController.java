@@ -1,4 +1,4 @@
-package com.softuni.pathfindersec.web.controllers;
+package com.softuni.pathfindersec.web;
 
 import java.io.IOException;
 import java.security.Principal;
