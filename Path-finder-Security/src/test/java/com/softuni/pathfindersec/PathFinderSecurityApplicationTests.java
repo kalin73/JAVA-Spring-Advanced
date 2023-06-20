@@ -8,6 +8,7 @@ class PathFinderSecurityApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }
