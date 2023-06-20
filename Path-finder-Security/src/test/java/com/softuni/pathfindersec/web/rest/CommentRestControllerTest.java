@@ -41,6 +41,16 @@ public class CommentRestControllerTest {
 				.andExpect(jsonPath("$.[1].text", is("Test comment 2")))
 				.andExpect(jsonPath("$.[1].user", is("Test User")));
 	}
+	
+	@Test
+	public void getComment_commentExists_commentReturned() throws Exception {
+		when(commentService.getComment(1l)).thenReturn(createComment("Test comment."));
+		
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/1/comments/1"))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.text", is("Test comment.")))
+			.andExpect(jsonPath("$.user", is("Test User")));
+	}
 
 	private Comment createComment(String text) {
 		UserEntity author = new UserEntity();
