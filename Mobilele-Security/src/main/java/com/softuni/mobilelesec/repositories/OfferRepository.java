@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import com.softuni.mobilelesec.domain.entities.OfferEntity;
 
-public interface OfferRepository extends JpaRepository<OfferEntity, String>, JpaSpecificationExecutor<OfferEntity> {
+public interface OfferRepository extends JpaRepository<OfferEntity, Long>, JpaSpecificationExecutor<OfferEntity> {
 	Optional<OfferEntity> findOfferEntityByOfferId(UUID uuid);
 }

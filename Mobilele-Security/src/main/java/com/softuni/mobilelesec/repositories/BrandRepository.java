@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.softuni.mobilelesec.domain.entities.BrandEntity;
 
-public interface BrandRepository extends JpaRepository<BrandEntity, String> {
+public interface BrandRepository extends JpaRepository<BrandEntity, Long> {
 
 }
