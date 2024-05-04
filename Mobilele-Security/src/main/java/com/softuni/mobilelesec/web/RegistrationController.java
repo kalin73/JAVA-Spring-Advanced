@@ -31,12 +31,12 @@ public class RegistrationController {
 	}
 
 	@GetMapping("/register")
-	public String getRegister(Model model) {
+	public String getRegister() {
 		return "auth-register";
 	}
 
 	@PostMapping("/register")
-	public String postRegister(@Valid @ModelAttribute(name = "userRegisterForm") UserRegisterFormDto userRegisterForm,
+	public String postRegister(@Valid UserRegisterFormDto userRegisterForm,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
 		if (bindingResult.hasErrors()) {
