@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetup;
@@ -57,14 +58,17 @@ public class RegisterControllerTest {
 
 	@Test
 	void testRegistration() throws Exception {
-	    mockMvc.perform(post("/users/register").
+	   // Act
+	   ResultActions result = mockMvc.perform(post("/users/register").
 	        param("email", "pesho@example.com").
 	        param("firstName", "Pesho").
 	        param("lastName", "Petrov").
 	        param("password", "topsecret").
 	        param("confirmPassword", "topsecret").
-	        with(csrf()))
-	    .andExpect(status().is3xxRedirection())
+	        with(csrf()));
+	   
+	    // Assert
+	    result.andExpect(status().is3xxRedirection())
 	    .andExpect(redirectedUrl("/users/login"));
 	    
 	    MimeMessage[] mails = greenMail.getReceivedMessages();
