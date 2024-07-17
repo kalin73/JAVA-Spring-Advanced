@@ -11,8 +11,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 public class MailConfig {
 	@Bean
-	JavaMailSender javaMailSender(@Value("${mail.host}") String mailHost, @Value("${mail.port}") Integer mailPort,
-			@Value("${mail.username}") String mailUsername, @Value("${mail.password}") String mailPassword) {
+	JavaMailSender javaMailSender(@Value("${spring.mail.host}") String mailHost, @Value("${spring.mail.port}") Integer mailPort,
+			@Value("${spring.mail.username}") String mailUsername, @Value("${spring.mail.password}") String mailPassword) {
 
 		JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 		javaMailSender.setHost(mailHost);
