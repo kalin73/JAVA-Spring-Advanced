@@ -1,5 +1,6 @@
 package com.softuni.mobilelesec.web;
 
+import java.security.Principal;
 import java.util.UUID;
 
 import org.springframework.data.domain.Pageable;
@@ -12,8 +13,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.softuni.mobilelesec.domain.dtos.binding.OfferCreationDto;
+import com.softuni.mobilelesec.domain.enums.Engine;
+import com.softuni.mobilelesec.domain.enums.ModelCategory;
+import com.softuni.mobilelesec.domain.enums.Transmission;
 import com.softuni.mobilelesec.services.OfferService;
 
 @Controller
@@ -52,7 +59,19 @@ public class OfferController {
 	}
 
 	@GetMapping("/add")
-	public String getOfferAddPage() {
-		return "offer-add";
+	public ModelAndView getOfferAddPage(ModelAndView modelAndView) {
+		modelAndView.addObject("engines", Engine.values());
+		modelAndView.addObject("models", ModelCategory.values());
+		modelAndView.addObject("transmissions", Transmission.values());
+		modelAndView.setViewName("offer-add");
+
+		return modelAndView;
+	}
+
+	@PostMapping("/add")
+	public String addOffer(OfferCreationDto creationDto, Principal principal) {
+		this.offerService.addOffer(creationDto, principal.getName());
+
+		return "redirect:/offers/all";
 	}
 }

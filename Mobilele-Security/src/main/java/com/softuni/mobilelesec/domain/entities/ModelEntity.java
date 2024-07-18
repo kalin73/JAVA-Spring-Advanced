@@ -10,99 +10,108 @@ import com.softuni.mobilelesec.domain.enums.ModelCategory;
 @Table(name = "models")
 public class ModelEntity extends BaseEntity {
 
-    @Column
-    private String name;
+	@Column
+	private String name;
 
-    @Enumerated(EnumType.STRING)
-    private ModelCategory category;
+	@Enumerated(EnumType.STRING)
+	private ModelCategory category;
 
-    @Column
-    private String imageUrl;
+	@Column
+	private String imageUrl;
 
-    @Column
-    private Integer startYear;
+	@Column
+	private Integer startYear;
 
-    @Column
-    private Integer endYear;
+	@Column
+	private Integer endYear;
 
-    @Column
-    private Date created;
+	@Column
+	private Date created;
 
-    @Column
-    private Date modified;
+	@Column
+	private Date modified;
 
-    @ManyToOne
-    private BrandEntity brand;
+	@ManyToOne
+	private BrandEntity brand;
 
-    public String getName() {
-        return name;
-    }
+	public ModelEntity() {
 
-    public ModelEntity setName(String name) {
-        this.name = name;
-        return this;
-    }
+	}
 
-    public ModelCategory getCategory() {
-        return category;
-    }
+	public ModelEntity(ModelCategory category) {
+		this.category = category;
 
-    public ModelEntity setCategory(ModelCategory category) {
-        this.category = category;
-        return this;
-    }
+	}
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public ModelEntity setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-        return this;
-    }
+	public ModelEntity setName(String name) {
+		this.name = name;
+		return this;
+	}
 
-    public Integer getStartYear() {
-        return startYear;
-    }
+	public ModelCategory getCategory() {
+		return category;
+	}
 
-    public ModelEntity setStartYear(Integer startYear) {
-        this.startYear = startYear;
-        return this;
-    }
+	public ModelEntity setCategory(ModelCategory category) {
+		this.category = category;
+		return this;
+	}
 
-    public Integer getEndYear() {
-        return endYear;
-    }
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
-    public ModelEntity setEndYear(Integer endYear) {
-        this.endYear = endYear;
-        return this;
-    }
+	public ModelEntity setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+		return this;
+	}
 
-    public Date getCreated() {
-        return created;
-    }
+	public Integer getStartYear() {
+		return startYear;
+	}
 
-    public ModelEntity setCreated(Date created) {
-        this.created = created;
-        return this;
-    }
+	public ModelEntity setStartYear(Integer startYear) {
+		this.startYear = startYear;
+		return this;
+	}
 
-    public Date getModified() {
-        return modified;
-    }
+	public Integer getEndYear() {
+		return endYear;
+	}
 
-    public ModelEntity setModified(Date modified) {
-        this.modified = modified;
-        return this;
-    }
+	public ModelEntity setEndYear(Integer endYear) {
+		this.endYear = endYear;
+		return this;
+	}
 
-    public BrandEntity getBrand() {
-        return brand;
-    }
+	public Date getCreated() {
+		return created;
+	}
 
-    public ModelEntity setBrand(BrandEntity brand) {
-        this.brand = brand;
-        return this;
-    }
+	public ModelEntity setCreated(Date created) {
+		this.created = created;
+		return this;
+	}
+
+	public Date getModified() {
+		return modified;
+	}
+
+	public ModelEntity setModified(Date modified) {
+		this.modified = modified;
+		return this;
+	}
+
+	public BrandEntity getBrand() {
+		return brand;
+	}
+
+	public ModelEntity setBrand(BrandEntity brand) {
+		this.brand = brand;
+		return this;
+	}
 }

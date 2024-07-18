@@ -8,24 +8,35 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.softuni.mobilelesec.domain.dtos.binding.OfferCreationDto;
 import com.softuni.mobilelesec.domain.dtos.model.SearchOfferDTO;
 import com.softuni.mobilelesec.domain.dtos.view.OfferDetailsViewDTO;
 import com.softuni.mobilelesec.domain.entities.OfferEntity;
+import com.softuni.mobilelesec.domain.entities.UserEntity;
 import com.softuni.mobilelesec.domain.enums.UserRoleEnum;
 import com.softuni.mobilelesec.repositories.OfferRepository;
 import com.softuni.mobilelesec.repositories.OfferSpecification;
+import com.softuni.mobilelesec.repositories.UserRepository;
 import com.softuni.mobilelesec.services.exception.ObjectNotFoundException;
 
 @Service
 public class OfferService {
 	private final OfferRepository offerRepository;
+	private final UserRepository userRepository;
 
-	public OfferService(OfferRepository offerRepository) {
+	public OfferService(OfferRepository offerRepository, UserRepository userRepository) {
 		this.offerRepository = offerRepository;
+		this.userRepository = userRepository;
 	}
 
 	public Page<OfferDetailsViewDTO> getAllOffers(Pageable pageable) {
 		return this.offerRepository.findAll(pageable).map(this::map);
+	}
+
+	public void addOffer(OfferCreationDto offerCreationDto, String email) {
+		UserEntity seller = this.userRepository.findByEmail(email).orElseThrow();
+
+		this.offerRepository.save(OfferCreationDto.mapToEntity(offerCreationDto, seller));
 	}
 
 	private OfferDetailsViewDTO map(OfferEntity offerEntity) {
@@ -63,10 +74,7 @@ public class OfferService {
 	}
 
 	public List<OfferDetailsViewDTO> findOffers(SearchOfferDTO filter) {
-		return this.offerRepository.findAll(new OfferSpecification(filter))
-				.stream()
-				.map(this::map)
-				.toList();
+		return this.offerRepository.findAll(new OfferSpecification(filter)).stream().map(this::map).toList();
 	}
 
 	private boolean isUserAdmin(UserDetails userDetails) {
