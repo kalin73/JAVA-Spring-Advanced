@@ -50,4 +50,9 @@ public class OfferController {
 
 		return "details";
 	}
+
+	@GetMapping("/add")
+	public String getOfferAddPage() {
+		return "offer-add";
+	}
 }
