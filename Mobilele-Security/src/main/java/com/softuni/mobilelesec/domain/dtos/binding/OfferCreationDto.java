@@ -1,12 +1,11 @@
 package com.softuni.mobilelesec.domain.dtos.binding;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
-import com.softuni.mobilelesec.domain.entities.ModelEntity;
 import com.softuni.mobilelesec.domain.entities.OfferEntity;
 import com.softuni.mobilelesec.domain.entities.UserEntity;
 import com.softuni.mobilelesec.domain.enums.Engine;
-import com.softuni.mobilelesec.domain.enums.ModelCategory;
 import com.softuni.mobilelesec.domain.enums.Transmission;
 
 public class OfferCreationDto {
@@ -108,7 +107,6 @@ public class OfferCreationDto {
 
 	public static OfferEntity mapToEntity(OfferCreationDto creationDto, UserEntity seller) {
 		OfferEntity offer = new OfferEntity();
-		offer.setModel(new ModelEntity(ModelCategory.valueOf(creationDto.getModel())));
 		offer.setEngine(creationDto.getEngine());
 		offer.setDescription(creationDto.getDescription());
 		offer.setMileage(creationDto.getMileage());
@@ -117,6 +115,7 @@ public class OfferCreationDto {
 		offer.setTransmission(creationDto.getTransmission());
 		offer.setYear(creationDto.getYear());
 		offer.setSeller(seller);
+		offer.setOfferId(UUID.randomUUID());
 
 		return offer;
 
