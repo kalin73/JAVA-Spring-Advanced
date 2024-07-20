@@ -42,7 +42,6 @@ public class OfferService {
 	private OfferDetailsViewDTO map(OfferEntity offerEntity) {
 		return new OfferDetailsViewDTO().setOfferId(offerEntity.getOfferId()).setImageUrl(offerEntity.getImageUrl())
 				.setDescription(offerEntity.getDescription()).setEngine(offerEntity.getEngine())
-				.setModel(offerEntity.getModel().getName()).setModel(offerEntity.getModel().getBrand().getName())
 				.setMileage(offerEntity.getMileage().toString()).// TODO -> int
 				setPrice(offerEntity.getPrice().toString()).// TODO -> big decimal
 				setTransmission(offerEntity.getTransmission()).setYear(offerEntity.getYear().toString());// TODO -> int
