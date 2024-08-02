@@ -39,6 +39,6 @@ management:
     port: 8081
 
 jwt:
-  secret: ${JWT_KEY:PmWJxTJmhzHD7g99sLHZ47z7Jkjexkz}
+  secret: ${JWT_KEY:PmWJxTJmhzHD7g99sLHZ47z7JkjexkzPmWJxTJmhzHD7g99sLHZ47z7Jkjexkz}
   expiration: ${JWT_EXPIRATION:60000}
  
