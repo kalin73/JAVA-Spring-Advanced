@@ -1,108 +1,133 @@
 package org.example.mobileleoffers.model.entity;
 
 import org.example.mobileleoffers.model.enums.EngineTypeEnum;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import org.example.mobileleoffers.model.enums.Transmission;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
 
-import java.time.Instant;
+import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity
 @Table(name = "offers")
-public class OfferEntity  {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+public class OfferEntity extends BaseEntity {
+	@Column
+	private String description;
 
-  @NotEmpty
-  @Column(columnDefinition = "TEXT")
-  private String description;
+	@JdbcTypeCode(java.sql.Types.VARCHAR)
+	private UUID offerId;
 
-  @Positive
-  private Integer mileage;
+	@Enumerated(EnumType.STRING)
+	private EngineTypeEnum engine;
 
-  @Positive
-  private int price;
+	@Column
+	private String imageUrl;
 
-  @Enumerated(EnumType.STRING)
-  private EngineTypeEnum engine;
+	@Column
+	private Integer mileage;
 
-  @Enumerated(EnumType.STRING)
-  private Transmission transmission;
+	@Column
+	private BigDecimal price;
 
-  @NotNull
-  @Column
-  private Instant created = Instant.now();
+	@Enumerated(EnumType.STRING)
+	private Transmission transmission;
 
-  public Integer getMileage() {
-    return mileage;
-  }
+	@Column
+	private Integer year;
 
-  public OfferEntity setMileage(Integer mileage) {
-    this.mileage = mileage;
-    return this;
-  }
+	@ManyToOne
+	private ModelEntity model;
 
-  public String getDescription() {
-    return description;
-  }
+	@ManyToOne
+	private UserEntity seller;
 
-  public OfferEntity setDescription(String description) {
-    this.description = description;
-    return this;
-  }
+	public String getDescription() {
+		return description;
+	}
 
-  public EngineTypeEnum getEngine() {
-    return engine;
-  }
+	public OfferEntity setDescription(String description) {
+		this.description = description;
+		return this;
+	}
 
-  public OfferEntity setEngine(EngineTypeEnum engine) {
-    this.engine = engine;
-    return this;
-  }
+	public EngineTypeEnum getEngine() {
+		return engine;
+	}
 
-  public int getPrice() {
-    return price;
-  }
+	public OfferEntity setEngine(EngineTypeEnum engine) {
+		this.engine = engine;
+		return this;
+	}
 
-  public OfferEntity setPrice(int price) {
-    this.price = price;
-    return this;
-  }
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
-  public Long getId() {
-    return id;
-  }
+	public OfferEntity setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+		return this;
+	}
 
-  public OfferEntity setId(Long id) {
-    this.id = id;
-    return this;
-  }
+	public Integer getMileage() {
+		return mileage;
+	}
 
-  public Transmission getTransmission() {
-    return transmission;
-  }
+	public OfferEntity setMileage(Integer mileage) {
+		this.mileage = mileage;
+		return this;
+	}
 
-  public OfferEntity setTransmission(Transmission transmission) {
-    this.transmission = transmission;
-    return this;
-  }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-  public Instant getCreated() {
-    return created;
-  }
+	public OfferEntity setPrice(BigDecimal price) {
+		this.price = price;
+		return this;
+	}
 
-  public OfferEntity setCreated(Instant created) {
-    this.created = created;
-    return this;
-  }
+	public Transmission getTransmission() {
+		return transmission;
+	}
+
+	public OfferEntity setTransmission(Transmission transmission) {
+		this.transmission = transmission;
+		return this;
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public OfferEntity setYear(Integer year) {
+		this.year = year;
+		return this;
+	}
+
+	public ModelEntity getModel() {
+		return model;
+	}
+
+	public OfferEntity setModel(ModelEntity model) {
+		this.model = model;
+		return this;
+	}
+
+	public UserEntity getSeller() {
+		return seller;
+	}
+
+	public OfferEntity setSeller(UserEntity seller) {
+		this.seller = seller;
+		return this;
+	}
+
+	public UUID getOfferId() {
+		return offerId;
+	}
+
+	public OfferEntity setOfferId(UUID offerId) {
+		this.offerId = offerId;
+		return this;
+	}
 }
