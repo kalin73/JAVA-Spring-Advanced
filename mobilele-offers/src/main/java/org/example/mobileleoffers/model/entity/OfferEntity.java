@@ -1,6 +1,6 @@
 package org.example.mobileleoffers.model.entity;
 
-import org.example.mobileleoffers.model.enums.EngineTypeEnum;
+import org.example.mobileleoffers.model.enums.Engine;
 import org.example.mobileleoffers.model.enums.Transmission;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -18,7 +18,7 @@ public class OfferEntity extends BaseEntity {
 	private UUID offerId;
 
 	@Enumerated(EnumType.STRING)
-	private EngineTypeEnum engine;
+	private Engine engine;
 
 	@Column
 	private String imageUrl;
@@ -50,11 +50,11 @@ public class OfferEntity extends BaseEntity {
 		return this;
 	}
 
-	public EngineTypeEnum getEngine() {
+	public Engine getEngine() {
 		return engine;
 	}
 
-	public OfferEntity setEngine(EngineTypeEnum engine) {
+	public OfferEntity setEngine(Engine engine) {
 		this.engine = engine;
 		return this;
 	}
