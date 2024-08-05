@@ -30,22 +30,6 @@ public class OfferController {
         this.offerService = offerService;
     }
 
-    @Operation(
-            security = @SecurityRequirement(name = "bearer-token")
-    )
-    @PostMapping
-    public ResponseEntity<OfferDTO> createOffer(@RequestBody AddOfferDTO addOfferDTO, Principal principal) {
-        var createdOffer = this.offerService.addOffer(addOfferDTO, principal.getName());
-
-        return ResponseEntity.created(ServletUriComponentsBuilder
-                        .fromCurrentRequest()
-                        .path("/{id}")
-                        .buildAndExpand(createdOffer.id())
-                        .toUri())
-                .body(createdOffer);
-    }
-
-
     @GetMapping("/all")
     public ResponseEntity<PagedModel<OfferDTO>> getAllOffers(@PageableDefault(
             size = 3,
@@ -72,5 +56,30 @@ public class OfferController {
     @GetMapping("/{id}")
     public ResponseEntity<OfferDTO> getOfferById(@PathVariable Long id) {
         return ResponseEntity.ok(this.offerService.getOfferById(id));
+    }
+
+    @Operation(
+            security = @SecurityRequirement(name = "bearer-token")
+    )
+    @PostMapping
+    public ResponseEntity<OfferDTO> createOffer(@RequestBody AddOfferDTO addOfferDTO, Principal principal) {
+        var createdOffer = this.offerService.addOffer(addOfferDTO, principal.getName());
+
+        return ResponseEntity.created(ServletUriComponentsBuilder
+                        .fromCurrentRequest()
+                        .path("/{id}")
+                        .buildAndExpand(createdOffer.id())
+                        .toUri())
+                .body(createdOffer);
+    }
+
+    @Operation(
+            security = @SecurityRequirement(name = "bearer-token")
+    )
+    @DeleteMapping("/{id}")
+    public ResponseEntity<OfferDTO> deleteOffer(@PathVariable("id") Long id) {
+        this.offerService.deleteOfferById(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

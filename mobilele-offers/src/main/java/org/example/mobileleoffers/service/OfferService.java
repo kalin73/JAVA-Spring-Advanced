@@ -42,6 +42,10 @@ public class OfferService {
                 .orElseThrow(() -> new NoSuchElementException("Could not find offer with id: " + id));
     }
 
+    public void deleteOfferById(Long id) {
+        this.offerRepository.deleteById(id);
+    }
+
     private OfferDTO mapToDto(OfferEntity offerEntity) {
         return new OfferDTO(offerEntity.getId(),
                 offerEntity.getEngine(),
