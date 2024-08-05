@@ -26,14 +26,6 @@ public class OfferController {
         this.offerService = offerService;
     }
 
-    @PreAuthorize("@offerService.isOwner(#mobileleUserDetails, #id)")
-    @DeleteMapping("/{id}")
-    public String deleteOffer(@AuthenticationPrincipal MobileleUserDetails mobileleUserDetails, @PathVariable("id") UUID id) {
-        offerService.deleteOfferByUUID(id);
-
-        return "redirect:/offers/all";
-    }
-
     @GetMapping("/all")
     public String getAllOffers(Model model, @PageableDefault(sort = "offerId", size = 3) Pageable pageable) {
         var allOffersPage = offerService.getAllOffers(pageable);
@@ -65,6 +57,14 @@ public class OfferController {
     @PostMapping("/add")
     public String addOffer(OfferCreationDto creationDto) {
         this.offerService.addOffer(creationDto);
+
+        return "redirect:/offers/all";
+    }
+
+    @PreAuthorize("@offerService.isOwner(#mobileleUserDetails, #id)")
+    @DeleteMapping("/{id}")
+    public String deleteOffer(@AuthenticationPrincipal MobileleUserDetails mobileleUserDetails, @PathVariable("id") UUID id) {
+        offerService.deleteOfferByUUID(id);
 
         return "redirect:/offers/all";
     }
