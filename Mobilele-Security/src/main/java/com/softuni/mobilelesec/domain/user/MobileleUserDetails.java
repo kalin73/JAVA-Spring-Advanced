@@ -10,13 +10,13 @@ public class MobileleUserDetails extends User {
     private final String lastName;
 
     public MobileleUserDetails(
-            String username,
+            String email,
             String password,
             Collection<? extends GrantedAuthority> authorities,
             String firstName,
             String lastName
     ) {
-        super(username, password, authorities);
+        super(email, password, authorities);
         this.firstName = firstName;
         this.lastName = lastName;
     }
