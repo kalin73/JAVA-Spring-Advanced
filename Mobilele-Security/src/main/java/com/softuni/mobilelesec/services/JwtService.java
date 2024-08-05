@@ -28,13 +28,14 @@ public class JwtService {
     public String generateToken(String email, Map<String, Object> claims) {
         Date now = new Date();
 
-        return Jwts.builder()
-                .claims(claims)
-                .subject(email)
-                .issuedAt(now)
-                .notBefore(now)
-                .expiration(new Date(now.getTime() + expiration))
-                .signWith(getSigningKey())
+        return Jwts
+                .builder()
+                .setClaims(claims)
+                .setSubject(email)
+                .setIssuedAt(now)
+                .setNotBefore(now)
+                .setExpiration(new Date(now.getTime() + expiration))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
