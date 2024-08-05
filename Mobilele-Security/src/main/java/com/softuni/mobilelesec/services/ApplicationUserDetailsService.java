@@ -2,6 +2,7 @@ package com.softuni.mobilelesec.services;
 
 import java.util.List;
 
+import com.softuni.mobilelesec.domain.user.MobileleUserDetails;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -16,30 +17,36 @@ import com.softuni.mobilelesec.repositories.UserRepository;
 
 public class ApplicationUserDetailsService implements UserDetailsService {
 
-	private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-	public ApplicationUserDetailsService(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
+    public ApplicationUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-	@Override
-	@Transactional
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		return this.userRepository.findByEmail(email).map(this::map)
-				.orElseThrow(() -> new UsernameNotFoundException("User with name " + email + " not found!"));
-	}
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return this.userRepository.findByEmail(email).map(this::map)
+                .orElseThrow(() -> new UsernameNotFoundException("User with name " + email + " not found!"));
+    }
 
-	private UserDetails map(UserEntity userEntity) {
-		return new User(userEntity.getEmail(), userEntity.getPassword(), extractAuthorities(userEntity));
+    private UserDetails map(UserEntity userEntity) {
+        return new MobileleUserDetails(
+                userEntity.getEmail(),
+                userEntity.getPassword(),
+                extractAuthorities(userEntity),
+                userEntity.getFirstName(),
+                userEntity.getLastName()
+        );
 
-	}
+    }
 
-	private List<GrantedAuthority> extractAuthorities(UserEntity userEntity) {
-		return userEntity.getRoles().stream().map(this::mapRole).toList();
-	}
+    private List<GrantedAuthority> extractAuthorities(UserEntity userEntity) {
+        return userEntity.getRoles().stream().map(this::mapRole).toList();
+    }
 
-	private GrantedAuthority mapRole(UserRoleEntity userRoleEntity) {
-		return new SimpleGrantedAuthority("ROLE_" + userRoleEntity.getRole().name());
-	}
+    private GrantedAuthority mapRole(UserRoleEntity userRoleEntity) {
+        return new SimpleGrantedAuthority("ROLE_" + userRoleEntity.getRole().name());
+    }
 
 }
