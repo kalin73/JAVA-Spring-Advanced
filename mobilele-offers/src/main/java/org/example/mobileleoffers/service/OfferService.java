@@ -4,10 +4,11 @@ import org.example.mobileleoffers.model.dto.AddOfferDTO;
 import org.example.mobileleoffers.model.dto.OfferDTO;
 import org.example.mobileleoffers.model.entity.OfferEntity;
 import org.example.mobileleoffers.repository.OfferRepository;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedModel;
 import org.springframework.stereotype.Service;
+
+import java.util.NoSuchElementException;
 
 @Service
 public class OfferService {
@@ -26,6 +27,12 @@ public class OfferService {
 
         return new PagedModel<>(offers);
 
+    }
+
+    public OfferDTO getOfferById(Long id) {
+        return this.offerRepository.findById(id)
+                .map(this::map)
+                .orElseThrow(() -> new NoSuchElementException("Could not find offer with id: " + id));
     }
 
     private OfferDTO map(OfferEntity offerEntity) {
