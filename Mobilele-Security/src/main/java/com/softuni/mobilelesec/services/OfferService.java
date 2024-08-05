@@ -53,7 +53,10 @@ public class OfferService {
     }
 
     public void deleteOfferByUUID(UUID id) {
-        offerRepository.findOfferEntityByOfferId(id).ifPresent(offerRepository::delete);
+        this.restClient
+                .delete()
+                .uri("/api/offers/{id}", id)
+                .retrieve();
     }
 
     public boolean isOwner(UserDetails userDetails, UUID id) {
