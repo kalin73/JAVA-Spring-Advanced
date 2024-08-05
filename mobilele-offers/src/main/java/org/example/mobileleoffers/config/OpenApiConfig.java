@@ -13,7 +13,7 @@ public class OpenApiConfig {
     @Bean
     OpenAPI customOpenAPI() {
         OpenAPI openAPI = new OpenAPI();
-        openAPI.components(new Components().addSecuritySchemes("bearer-key",
+        openAPI.components(new Components().addSecuritySchemes("bearer-token",
                 new SecurityScheme()
                         .type(SecurityScheme.Type.HTTP)
                         .scheme("bearer")
