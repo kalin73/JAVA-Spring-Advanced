@@ -34,4 +34,4 @@ logging:
     org.hibernate.orm.jdbc.bind: TRACE
 
 jwt:
-  secret: ${JWT_KEY:WSdv1kEE1tCT1a8ihRSqfwMNzlPBq8IWSdv1kEE1tCT1a8ihRSqfwMNzlPBq8IWSdv1kEE1tCT1a8ihRSqfwMNzlPBq8I}
+  secret: ${JWT_KEY:PmWJxTJmhzHD7g99sLHZ47z7JkjexkzPmWJxTJmhzHD7g99sLHZ47z7Jkjexkz}
