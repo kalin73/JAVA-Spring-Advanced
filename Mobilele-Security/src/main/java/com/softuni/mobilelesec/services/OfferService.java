@@ -1,36 +1,31 @@
 package com.softuni.mobilelesec.services;
 
-import java.util.List;
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.MediaType;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
-
 import com.softuni.mobilelesec.domain.dtos.binding.OfferCreationDto;
 import com.softuni.mobilelesec.domain.dtos.model.SearchOfferDTO;
 import com.softuni.mobilelesec.domain.dtos.view.OfferDetailsViewDTO;
 import com.softuni.mobilelesec.domain.entities.OfferEntity;
-import com.softuni.mobilelesec.domain.entities.UserEntity;
 import com.softuni.mobilelesec.domain.enums.UserRoleEnum;
 import com.softuni.mobilelesec.repositories.OfferRepository;
 import com.softuni.mobilelesec.repositories.OfferSpecification;
-import com.softuni.mobilelesec.repositories.UserRepository;
 import com.softuni.mobilelesec.services.exception.ObjectNotFoundException;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
+
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class OfferService {
     private final OfferRepository offerRepository;
-    private final UserRepository userRepository;
     private final RestClient restClient;
 
-    public OfferService(OfferRepository offerRepository, UserRepository userRepository, @Qualifier("offersRestClient") RestClient restClient) {
+    public OfferService(OfferRepository offerRepository, @Qualifier("offersRestClient") RestClient restClient) {
         this.offerRepository = offerRepository;
-        this.userRepository = userRepository;
         this.restClient = restClient;
     }
 
@@ -38,9 +33,7 @@ public class OfferService {
         return this.offerRepository.findAll(pageable).map(this::map);
     }
 
-    public void addOffer(OfferCreationDto offerCreationDto, String email) {
-        UserEntity seller = this.userRepository.findByEmail(email).orElseThrow();
-
+    public void addOffer(OfferCreationDto offerCreationDto) {
         restClient.put()
                 .uri("/api/offers")
                 .body(offerCreationDto)
@@ -85,7 +78,7 @@ public class OfferService {
     }
 
     private boolean isUserAdmin(UserDetails userDetails) {
-        return userDetails.getAuthorities().stream().map(a -> a.getAuthority())
+        return userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .anyMatch(a -> a.equals("ROLE_" + UserRoleEnum.ADMIN.name()));
     }
 }
