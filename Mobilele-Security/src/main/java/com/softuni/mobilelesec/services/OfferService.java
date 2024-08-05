@@ -34,18 +34,22 @@ public class OfferService {
     }
 
     public void addOffer(OfferCreationDto offerCreationDto) {
-        restClient.put()
+        restClient.post()
                 .uri("/api/offers")
                 .body(offerCreationDto)
                 .retrieve();
     }
 
     private OfferDetailsViewDTO map(OfferEntity offerEntity) {
-        return new OfferDetailsViewDTO().setOfferId(offerEntity.getOfferId()).setImageUrl(offerEntity.getImageUrl())
-                .setDescription(offerEntity.getDescription()).setEngine(offerEntity.getEngine())
-                .setMileage(offerEntity.getMileage().toString()).// TODO -> int
-                        setPrice(offerEntity.getPrice().toString()).// TODO -> big decimal
-                        setTransmission(offerEntity.getTransmission()).setYear(offerEntity.getYear().toString());// TODO -> int
+        return new OfferDetailsViewDTO()
+                .setOfferId(offerEntity.getOfferId())
+                .setImageUrl(offerEntity.getImageUrl())
+                .setDescription(offerEntity.getDescription())
+                .setEngine(offerEntity.getEngine())
+                .setMileage(offerEntity.getMileage().toString())
+                .setPrice(offerEntity.getPrice().toString())
+                .setTransmission(offerEntity.getTransmission()).setYear(offerEntity.getYear().toString())
+                .setSeller(offerEntity.getSeller().getFirstName() + " " + offerEntity.getSeller().getLastName());
     }
 
     public void deleteOfferByUUID(UUID id) {
