@@ -38,6 +38,10 @@ management:
   server:
     port: 8081
 
+offers:
+  api:
+    baseUrl: "${OFFERS_BASE_URL:http://localhost:8081}"
+
 jwt:
   secret: ${JWT_KEY:PmWJxTJmhzHD7g99sLHZ47z7JkjexkzPmWJxTJmhzHD7g99sLHZ47z7Jkjexkz}
   expiration: ${JWT_EXPIRATION:60000}
