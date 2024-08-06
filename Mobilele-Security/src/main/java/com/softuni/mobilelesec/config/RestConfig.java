@@ -33,7 +33,6 @@ public class RestConfig {
     public ClientHttpRequestInterceptor requestInterceptor(UserService userService,
                                                            JwtService jwtService) {
         return (r, b, e) -> {
-            // put the logged user details into bearer token
             userService
                     .getCurrentUser()
                     .ifPresent(mud -> {
@@ -44,9 +43,6 @@ public class RestConfig {
                                         mud.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList()
                                 )
                         );
-
-                        System.out.println("BEARER TOKEN: " + bearerToken);
-
                         r.getHeaders().setBearerAuth(bearerToken);
                     });
 
