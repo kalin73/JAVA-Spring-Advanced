@@ -63,7 +63,7 @@ public class OfferController {
         return ResponseEntity.created(ServletUriComponentsBuilder
                         .fromCurrentRequest()
                         .path("/{id}")
-                        .buildAndExpand(createdOffer.id())
+                        .buildAndExpand(createdOffer.offerId())
                         .toUri())
                 .body(createdOffer);
     }
