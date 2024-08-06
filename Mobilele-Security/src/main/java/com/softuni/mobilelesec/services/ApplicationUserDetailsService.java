@@ -2,10 +2,8 @@ package com.softuni.mobilelesec.services;
 
 import java.util.List;
 
-import com.softuni.mobilelesec.domain.user.MobileleUserDetails;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.softuni.mobilelesec.domain.entities.UserEntity;
 import com.softuni.mobilelesec.domain.entities.UserRoleEntity;
+import com.softuni.mobilelesec.domain.user.MobileleUserDetails;
 import com.softuni.mobilelesec.repositories.UserRepository;
 
 public class ApplicationUserDetailsService implements UserDetailsService {

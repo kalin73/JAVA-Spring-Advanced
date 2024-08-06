@@ -6,7 +6,8 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 
 public class MobileleUserDetails extends User {
-    private final String firstName;
+	private static final long serialVersionUID = 2217226768558038840L;
+	private final String firstName;
     private final String lastName;
 
     public MobileleUserDetails(
