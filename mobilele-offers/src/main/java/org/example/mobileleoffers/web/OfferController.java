@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.security.Principal;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/offers")
@@ -77,7 +78,7 @@ public class OfferController {
             security = @SecurityRequirement(name = "bearer-token")
     )
     @DeleteMapping("/{id}")
-    public ResponseEntity<OfferDTO> deleteOffer(@PathVariable("id") Long id) {
+    public ResponseEntity<OfferDTO> deleteOffer(@PathVariable("id") UUID id) {
         this.offerService.deleteOfferById(id);
 
         return ResponseEntity.noContent().build();
