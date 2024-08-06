@@ -1,6 +1,7 @@
 package com.softuni.mobilelesec.services;
 
 import com.softuni.mobilelesec.domain.dtos.binding.OfferCreationDto;
+import com.softuni.mobilelesec.domain.dtos.model.PageResponse;
 import com.softuni.mobilelesec.domain.dtos.model.SearchOfferDTO;
 import com.softuni.mobilelesec.domain.dtos.view.OfferDetailsViewDTO;
 import com.softuni.mobilelesec.domain.entities.OfferEntity;
@@ -9,8 +10,11 @@ import com.softuni.mobilelesec.repositories.OfferRepository;
 import com.softuni.mobilelesec.repositories.OfferSpecification;
 import com.softuni.mobilelesec.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -30,7 +34,21 @@ public class OfferService {
     }
 
     public Page<OfferDetailsViewDTO> getAllOffers(Pageable pageable) {
-        return this.offerRepository.findAll(pageable).map(this::map);
+        PageResponse<OfferDetailsViewDTO> offers = this.restClient.get()
+                .uri("/api/offers?page={page}&size={size}&sort=id,desc",
+                        pageable.getPageNumber(),
+                        pageable.getPageSize()
+                )
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {
+                });
+
+        assert offers != null;
+
+        return new PageImpl<>(offers.getContent(), pageable, offers.getPage().totalElements());
+
+//        return this.offerRepository.findAll(pageable).map(this::map);
     }
 
     public void addOffer(OfferCreationDto offerCreationDto) {
