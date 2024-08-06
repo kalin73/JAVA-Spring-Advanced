@@ -31,7 +31,7 @@ public class OfferController {
         this.offerService = offerService;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<PagedModel<OfferDTO>> getAllOffers(@PageableDefault(
             size = 3,
             sort = "id",
