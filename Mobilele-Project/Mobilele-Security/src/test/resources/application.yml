@@ -8,7 +8,15 @@ spring:
       mode: never
 
   mail:
-    host: "localhost"
+    host: localhost
     port: 1025
-    username: "mobilele@mobilele.com"
-    password: "topsecret"
+    username: mobilele@mobilele.com
+    password: topsecret
+
+offers:
+  api:
+    baseUrl: "${OFFERS_BASE_URL:http://localhost:8081}"
+
+jwt:
+  secret: ${JWT_KEY:PmWJxTJmhzHD7g99sLHZ47z7JkjexkzPmWJxTJmhzHD7g99sLHZ47z7Jkjexkz}
+  expiration: ${JWT_EXPIRATION:60000}
