@@ -3,7 +3,6 @@ package com.softuni.mobilelesec.web.aop;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +16,7 @@ import java.lang.reflect.Method;
 public class MonitoringAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(MonitoringAspect.class);
 
-    @Pointcut("@annotation(WarnIfExecutionExceeds)")
-    void warnIfExecutionTimeExceeds() {
-    }
-
-    @Around("warnIfExecutionTimeExceeds()")
+    @Around("Pointcuts.warnIfExecutionTimeExceeds()")
     Object monitorExecutionTime(ProceedingJoinPoint pjp) throws Throwable {
         WarnIfExecutionExceeds annotation = getAnnotation(pjp);
         long threshold = annotation.threshold();
