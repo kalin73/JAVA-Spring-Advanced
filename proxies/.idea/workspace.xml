@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ddbbfa5-d55e-4235-b6f7-42fd4e72f7dc" name="Changes" comment="proxy example">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/proxydemo/Cacheable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/proxydemo/CacheableInvocationHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/proxydemo/StudentDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/proxydemo/StudentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/proxydemo/StudentServiceImpl.java" afterDir="false" />
-    </list>
+    <list default="true" id="4ddbbfa5-d55e-4235-b6f7-42fd4e72f7dc" name="Changes" comment="proxy example" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -110,8 +96,17 @@
       <updated>1723152996082</updated>
       <workItem from="1723152997214" duration="3458000" />
       <workItem from="1723156545047" duration="442000" />
-      <workItem from="1723197658053" duration="42000" />
+      <workItem from="1723197658053" duration="61000" />
     </task>
+    <task id="LOCAL-00001" summary="proxy example">
+      <option name="closed" value="true" />
+      <created>1723197706735</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1723197706735</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -16,26 +16,27 @@ import org.springframework.stereotype.Component;
 public class Sample1Aspect {
 	private final Logger LOGGER = LoggerFactory.getLogger(Sample1Aspect.class);
 
-	@Pointcut("execution(* com.softuni.aop.sample1.SampleComponent.*(..))")
+	@Pointcut("execution(* com.softuni.aop.SampleComponent.*(..))")
 	void allSampleComponentMethods() {
 
 	}
 
-	@Pointcut("execution(* com.softuni.aop.sample1.SampleComponent.concatTwoStrings(..))")
+	@Pointcut("execution(* com.softuni.aop.SampleComponent.concatTwoStrings(..))")
 	void concat() {
 
 	}
 
-	@Around("concat() && args(s1, s2)")
-	Object aroundConcat(ProceedingJoinPoint pjp, String s1, String s2) throws Throwable {
-		LOGGER.info("concat method was called with arguments {}, {}.", s1, s2);
+	@Around(value = "concat() && args(s1, s2)", argNames = "pjp,s1,s2")
+	String aroundConcat(ProceedingJoinPoint pjp, String s1, String s2) throws Throwable {
+		// Before
+		LOGGER.info("Method concat was called with arguments {}, {}.", s1, s2);
 		String m1 = "(" + s1 + ")";
 		String m2 = "(" + s2 + ")";
 
-		Object result = pjp.proceed(new Object[] { m1, m2 });
+		// Execute
+		String result = (String) pjp.proceed(new Object[] { m1, m2 });
 
-		// what is below this line is AFTER the method is called
-
+		// After
 		return "[" + result + "]";
 
 	}
@@ -50,7 +51,7 @@ public class Sample1Aspect {
 		LOGGER.info("Before calling a method {}", joinpoint.getSignature());
 	}
 
-	@Pointcut("execution(* com.softuni.aop.sample1.SampleComponent.echoSomething(..))")
+	@Pointcut("execution(* com.softuni.aop.SampleComponent.echoSomething(..))")
 	void echoMethod() {
 
 	}

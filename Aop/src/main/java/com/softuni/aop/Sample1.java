@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Sample1 implements CommandLineRunner {
 	private final SampleComponent sampleComponent;
-	private final Logger LOGGER = LoggerFactory.getLogger(SampleComponent.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(Sample1Aspect.class);
 
 	public Sample1(SampleComponent sampleComponent) {
 		this.sampleComponent = sampleComponent;
@@ -24,10 +24,12 @@ public class Sample1 implements CommandLineRunner {
 //		} catch (Exception e) {
 //			LOGGER.error("What i want to echo is {}", e.getMessage());
 //		}
-		String s1 = "string1";
-		String s2 = "string2";
+		final String s1 = "string1";
+		final String s2 = "string2";
 
-		LOGGER.info("Concatenating {} and {}. Result is {}", s1, s2, sampleComponent.concatTwoStrings(s1, s2));
+		String result = sampleComponent.concatTwoStrings(s1, s2);
+
+		LOGGER.info("Concatenating {} and {}. Result is {}", s1, s2, result);
 	}
 
 }
