@@ -59,7 +59,6 @@ public class OfferService {
 
     private OfferEntity mapToEntity(AddOfferDTO addOfferDTO, UserEntity userEntity) {
         return new OfferEntity()
-                .setOfferId(UUID.randomUUID())
                 .setEngine(addOfferDTO.engine())
                 .setDescription(addOfferDTO.description())
                 .setImageUrl(addOfferDTO.imageUrl())
