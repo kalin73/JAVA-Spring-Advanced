@@ -6,6 +6,7 @@ import com.softuni.mobilelesec.domain.enums.ModelCategory;
 import com.softuni.mobilelesec.domain.enums.Transmission;
 import com.softuni.mobilelesec.domain.user.MobileleUserDetails;
 import com.softuni.mobilelesec.services.OfferService;
+import com.softuni.mobilelesec.web.aop.WarnIfExecutionExceeds;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,6 +28,7 @@ public class OfferController {
     }
 
     @GetMapping("/all")
+    @WarnIfExecutionExceeds(threshold = 1000)
     public String getAllOffers(Model model, @PageableDefault(sort = "offerId", size = 3) Pageable pageable) {
         var allOffersPage = offerService.getAllOffers(pageable);
 
