@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
 
 @Service
 public class JwtService {
@@ -29,14 +29,14 @@ public class JwtService {
     }
 
     private Claims extractClaims(String jwtToken) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
                 .build()
-                .parseClaimsJws(jwtToken)
-                .getBody();
+                .parseSignedClaims(jwtToken)
+                .getPayload();
     }
 
-    public Key getSigningKey() {
+    public SecretKey getSigningKey() {
         byte[] keyBytes = secret.getBytes();
 
         return Keys.hmacShaKeyFor(keyBytes);
