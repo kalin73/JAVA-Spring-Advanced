@@ -3,11 +3,9 @@ package com.softuni.mobilelesec.domain.dtos.view;
 import com.softuni.mobilelesec.domain.enums.Engine;
 import com.softuni.mobilelesec.domain.enums.Transmission;
 
-import java.util.UUID;
-
 public class OfferDetailsViewDTO {
     private String description;
-    private UUID offerId;
+    private String offerId;
     private Engine engine;
     private String imageUrl;
     private String mileage;
@@ -31,11 +29,11 @@ public class OfferDetailsViewDTO {
         return this;
     }
 
-    public UUID getOfferId() {
+    public String getOfferId() {
         return offerId;
     }
 
-    public OfferDetailsViewDTO setOfferId(UUID offerId) {
+    public OfferDetailsViewDTO setOfferId(String offerId) {
         this.offerId = offerId;
         return this;
     }

@@ -60,7 +60,7 @@ public class OfferService {
 
     private OfferDetailsViewDTO map(OfferEntity offerEntity) {
         return new OfferDetailsViewDTO()
-                .setOfferId(offerEntity.getOfferId())
+                .setOfferId(offerEntity.getOfferId().toString())
                 .setImageUrl(offerEntity.getImageUrl())
                 .setDescription(offerEntity.getDescription())
                 .setEngine(offerEntity.getEngine())
