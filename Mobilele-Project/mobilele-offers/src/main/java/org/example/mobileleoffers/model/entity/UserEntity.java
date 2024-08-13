@@ -5,6 +5,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -17,7 +18,7 @@ public class UserEntity extends BaseEntity {
 
     @JdbcTypeCode(java.sql.Types.VARCHAR)
     @UuidGenerator
-    private String userId;
+    private UUID userId;
 
     @Column
     private String firstName;
@@ -46,11 +47,11 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 

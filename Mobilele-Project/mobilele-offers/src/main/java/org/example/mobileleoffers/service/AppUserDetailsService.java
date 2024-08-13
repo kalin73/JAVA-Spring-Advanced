@@ -33,7 +33,8 @@ public class AppUserDetailsService implements UserDetailsService {
                         .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getRole().name()))
                         .toList(),
                 userEntity.getFirstName(),
-                userEntity.getLastName()
+                userEntity.getLastName(),
+                userEntity.getUserId().toString()
         );
     }
 }
