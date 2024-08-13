@@ -17,7 +17,7 @@ public class UserEntity extends BaseEntity {
 
     @JdbcTypeCode(java.sql.Types.VARCHAR)
     @UuidGenerator
-    private String uuid;
+    private String userId;
 
     @Column
     private String firstName;
@@ -46,12 +46,12 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public String getUuid() {
-        return uuid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
