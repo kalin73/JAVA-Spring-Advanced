@@ -1,39 +1,40 @@
 package com.softuni.mobilelesec.domain.entities;
 
-import java.util.List;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.UuidGenerator;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import java.sql.Types;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
+    @Column
+    private String email;
 
     @Column
-    private String email; // –  username of the user.
+    private String password;
+
+    @UuidGenerator
+    @JdbcTypeCode(Types.VARCHAR)
+    private UUID userId;
 
     @Column
-    private String password; //– password of the user.
+    private String firstName;
 
     @Column
-    private String firstName; //–  first name of the user.
+    private String lastName;
 
     @Column
-    private String lastName; //–  last name of the user.
-
-    @Column
-    private Boolean isActive; //– true OR false.
+    private Boolean isActive;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
-        name = "users_roles",
-        joinColumns = { @JoinColumn(name = "user_id") },
-        inverseJoinColumns = { @JoinColumn(name = "role_id") }
+            name = "users_roles",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private List<UserRoleEntity> roles; //–  user's role (UserEntity or Admin).
 
@@ -45,6 +46,14 @@ public class UserEntity extends BaseEntity {
     public UserEntity setPassword(String password) {
         this.password = password;
         return this;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {

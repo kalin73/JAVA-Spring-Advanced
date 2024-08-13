@@ -1,33 +1,38 @@
 package org.example.mobileleoffers.model.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
+    @Column
+    private String email;
 
     @Column
-    private String email; // –  username of the user.
+    private String password;
+
+    @JdbcTypeCode(java.sql.Types.VARCHAR)
+    @UuidGenerator
+    private String uuid;
 
     @Column
-    private String password; //– password of the user.
+    private String firstName;
 
     @Column
-    private String firstName; //–  first name of the user.
+    private String lastName;
 
     @Column
-    private String lastName; //–  last name of the user.
-
-    @Column
-    private Boolean isActive; //– true OR false.
+    private Boolean isActive;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
-        name = "users_roles",
-        joinColumns = { @JoinColumn(name = "user_id") },
-        inverseJoinColumns = { @JoinColumn(name = "role_id") }
+            name = "users_roles",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private List<UserRoleEntity> roles; //–  user's role (UserEntity or Admin).
 
@@ -39,6 +44,14 @@ public class UserEntity extends BaseEntity {
     public UserEntity setPassword(String password) {
         this.password = password;
         return this;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getFirstName() {

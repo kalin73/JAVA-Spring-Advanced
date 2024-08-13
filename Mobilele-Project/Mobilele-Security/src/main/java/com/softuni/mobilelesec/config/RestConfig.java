@@ -37,7 +37,7 @@ public class RestConfig {
                     .getCurrentUser()
                     .ifPresent(mud -> {
                         String bearerToken = jwtService.generateToken(
-                                mud.getUsername(),
+                                mud.getUserId(),
                                 Map.of(
                                         "roles",
                                         mud.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList()

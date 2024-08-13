@@ -6,20 +6,23 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 
 public class MobileleUserDetails extends User {
-	private static final long serialVersionUID = 2217226768558038840L;
-	private final String firstName;
+    private static final long serialVersionUID = 2217226768558038840L;
+    private final String firstName;
     private final String lastName;
+    private final String userId;
 
     public MobileleUserDetails(
             String email,
             String password,
             Collection<? extends GrantedAuthority> authorities,
             String firstName,
-            String lastName
+            String lastName,
+            String userId
     ) {
         super(email, password, authorities);
         this.firstName = firstName;
         this.lastName = lastName;
+        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -28,6 +31,10 @@ public class MobileleUserDetails extends User {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getFullName() {

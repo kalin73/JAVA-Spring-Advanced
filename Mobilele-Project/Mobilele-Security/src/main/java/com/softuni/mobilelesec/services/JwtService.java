@@ -23,13 +23,13 @@ public class JwtService {
         this.expiration = expiration;
     }
 
-    public String generateToken(String email, Map<String, Object> claims) {
+    public String generateToken(String userId, Map<String, Object> claims) {
         Date now = new Date();
 
         return Jwts
                 .builder()
                 .claims(claims)
-                .subject(email)
+                .subject(userId)
                 .issuedAt(now)
                 .notBefore(now)
                 .expiration(new Date(now.getTime() + expiration))
