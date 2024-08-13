@@ -6,7 +6,6 @@ import io.jsonwebtoken.security.Keys;
 import org.example.mobileleoffers.model.entity.UserEntity;
 import org.example.mobileleoffers.model.user.MobileleUserDetails;
 import org.example.mobileleoffers.repository.UserRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -19,12 +18,10 @@ public class JwtService {
     private final String secret;
 
     private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
 
-    public JwtService(@Value("${jwt.secret}") String secret, UserRepository userRepository, ModelMapper modelMapper) {
+    public JwtService(@Value("${jwt.secret}") String secret, UserRepository userRepository) {
         this.secret = secret;
         this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
     }
 
     public UserDetails extractUserDetails(String jwtToken) {
@@ -33,7 +30,7 @@ public class JwtService {
 
         Optional<UserEntity> user = userRepository.findByUserId(userId);
 
-        return user.map(u -> modelMapper.map(u, MobileleUserDetails.class)).orElseThrow();
+        return user.map(MobileleUserDetails::mapToMobileleUserDetails).orElseThrow();
     }
 
     private Claims extractClaims(String jwtToken) {

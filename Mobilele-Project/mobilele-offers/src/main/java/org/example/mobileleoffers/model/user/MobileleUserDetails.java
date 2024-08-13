@@ -1,6 +1,8 @@
 package org.example.mobileleoffers.model.user;
 
+import org.example.mobileleoffers.model.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
@@ -61,5 +63,17 @@ public class MobileleUserDetails extends User {
         }
 
         return fullName.toString();
+    }
+
+    public static MobileleUserDetails mapToMobileleUserDetails(UserEntity userEntity) {
+        return new MobileleUserDetails(userEntity.getEmail(),
+                userEntity.getPassword(),
+                userEntity.getRoles().stream()
+                        .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getRole().name()))
+                        .toList(),
+                userEntity.getFirstName(),
+                userEntity.getLastName(),
+                userEntity.getUserId().toString()
+        );
     }
 }
