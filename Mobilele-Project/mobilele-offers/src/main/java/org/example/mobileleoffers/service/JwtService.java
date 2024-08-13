@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class JwtService {
@@ -28,7 +29,7 @@ public class JwtService {
         Claims claims = extractClaims(jwtToken);
         final String userId = claims.getSubject();
 
-        Optional<UserEntity> user = userRepository.findByUserId(userId);
+        Optional<UserEntity> user = userRepository.findByUserId(UUID.fromString(userId));
 
         return user.map(MobileleUserDetails::mapToMobileleUserDetails).orElseThrow();
     }
