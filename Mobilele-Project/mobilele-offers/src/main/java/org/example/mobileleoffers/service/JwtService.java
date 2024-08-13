@@ -3,29 +3,37 @@ package org.example.mobileleoffers.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.example.mobileleoffers.model.entity.UserEntity;
+import org.example.mobileleoffers.model.user.MobileleUserDetails;
+import org.example.mobileleoffers.repository.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
+import java.util.Optional;
 
 @Service
 public class JwtService {
     private final String secret;
 
-    private final UserDetailsService userDetailsService;
+    private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
-    public JwtService(@Value("${jwt.secret}") String secret, UserDetailsService userDetailsService) {
+    public JwtService(@Value("${jwt.secret}") String secret, UserRepository userRepository, ModelMapper modelMapper) {
         this.secret = secret;
-        this.userDetailsService = userDetailsService;
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
     }
 
     public UserDetails extractUserDetails(String jwtToken) {
         Claims claims = extractClaims(jwtToken);
-        final String username = claims.getSubject();
+        final String userId = claims.getSubject();
 
-        return userDetailsService.loadUserByUsername(username);
+        Optional<UserEntity> user = userRepository.findByUserId(userId);
+
+        return user.map(u -> modelMapper.map(u, MobileleUserDetails.class)).orElseThrow();
     }
 
     private Claims extractClaims(String jwtToken) {
