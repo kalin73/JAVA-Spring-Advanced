@@ -59,7 +59,7 @@
 						class="custom-select" name="level">
 						<option value="" selected>Select level</option>
 						<option
-							th:each="level : ${T(com.softuni.pathfinder.domain.enums.Level).values()}"
+							th:each="level : ${T(com.softuni.pathfindersec.domain.enums.Level).values()}"
 							th:value="${level}" th:text="${level}"></option>
 					</select> <small id="level"
 						class="invalid-feedback  form-text bg-danger rounded"
@@ -84,7 +84,7 @@
 					<label class="p-2" for="categories">Categories:</label> <input
 						class="m-3" type="checkbox" name="categories" id="categories"
 						value="1"
-						th:each="category : ${T(com.softuni.pathfinder.domain.enums.CategoryName).values()}"
+						th:each="category : ${T(com.softuni.pathfindersec.domain.enums.CategoryName).values()}"
 						th:object="${category}" th:value="${category}"
 						th:text="${category}"> <br>
 				</div>
